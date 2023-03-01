@@ -1,16 +1,47 @@
+import statistics
+
 class Restaurant:
     all = []
 
     def __init__(self, name):
-        pass
+        if type(name) == str:
+            self._name = name
 
+            Restaurant.all.append(self)
+        else:
+            print("the restaurant name must be a string!")
+
+            raise Exception("the restaurant name must be a string!")
+
+        self.reviews = []
+        self.customers = []
+
+    '''
+    @property
     def name(self):
-        # name property goes here!
-        pass
+        return self._name
+    '''
+
+    def get_name(self):
+        return self._name
+
+    name = property(get_name)
 
     def get_average_rating(self):
-        pass
+        total = 0
+
+        for review in self.reviews:
+            total += review.rating
+
+        average = total / len(self.reviews)
+
+        return average
+
+        # return sum([review.rating for review in self.reviews]) / len(self.reviews)
+
+        # return statistics.mean([review.rating for review in self.reviews])
 
     @classmethod
     def get_all_restaurants(cls):
-        pass
+        return cls.all
+
